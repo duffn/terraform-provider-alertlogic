@@ -25,6 +25,6 @@ provider "alertlogic" {
 
 ### Required
 
-- **account_id** (String)
-- **password** (String, Sensitive)
-- **username** (String)
+- **account_id** (String) Your Alert Logic Account ID.
+- **password** (String, Sensitive) Your Alert Logic password. While you can use your actual password here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.
+- **username** (String) Your Alert Logic username. While you can use your actual username here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.

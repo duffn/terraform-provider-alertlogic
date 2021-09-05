@@ -3,12 +3,12 @@
 page_title: "alertlogic_users Data Source - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
-  A list of users that currently exist in Alert Logic.
+  A list of Alert Logic users.
 ---
 
 # alertlogic_users (Data Source)
 
-A list of users that currently exist in Alert Logic.
+A list of Alert Logic users.
 
 
 
