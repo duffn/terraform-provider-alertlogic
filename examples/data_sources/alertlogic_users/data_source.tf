@@ -1,5 +1,5 @@
-data "alertlogic_users" "users" {}
+data "alertlogic_users" "all_users" {}
 
 output "users" {
-  value = data.alertlogic_users.users.users
+  value = data.alertlogic_users.all_users.users
 }
