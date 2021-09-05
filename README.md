@@ -29,10 +29,22 @@ provider "alertlogic" {
 
 ### Users
 
+#### Resource
+
 ```hcl
 resource "alertlogic_user" "user" {
   name         = "Bob Loblaw"
   email        = "bob@bobloblawlaw.com"
   mobile_phone = "234-555-5555"
+}
+```
+
+#### Data source
+
+```hcl
+data "alertlogic_users" "all_users" {}
+
+output "users" {
+  value = data.alertlogic_users.all_users.users
 }
 ```
