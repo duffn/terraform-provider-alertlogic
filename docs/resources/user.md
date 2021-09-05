@@ -3,12 +3,12 @@
 page_title: "alertlogic_user Resource - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
-  An Alert Logic User.
+  An Alert Logic user.
 ---
 
 # alertlogic_user (Resource)
 
-An Alert Logic User.
+An Alert Logic user.
 
 ## Example Usage
 
