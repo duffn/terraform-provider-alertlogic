@@ -10,7 +10,7 @@ import (
 
 func resourceUser() *schema.Resource {
 	return &schema.Resource{
-		Description:   "An Alert Logic User.",
+		Description:   "An Alert Logic user.",
 		CreateContext: resourceUserCreate,
 		ReadContext:   resourceUserRead,
 		UpdateContext: resourceUserUpdate,

@@ -12,7 +12,7 @@ import (
 func dataSourceUsers() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceUsersRead,
-		Description: "A list of users that currently exist in Alert Logic.",
+		Description: "A list of Alert Logic users.",
 		Schema: map[string]*schema.Schema{
 			"users": {
 				Type:        schema.TypeList,
