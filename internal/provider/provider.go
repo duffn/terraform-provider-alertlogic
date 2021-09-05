@@ -37,7 +37,7 @@ func New(version string) func() *schema.Provider {
 				},
 			},
 			ResourcesMap:   map[string]*schema.Resource{"alertlogic_user": resourceUser()},
-			DataSourcesMap: map[string]*schema.Resource{"alertlogic_users": dataSourceUsers()},
+			DataSourcesMap: map[string]*schema.Resource{"alertlogic_users": dataSourceUsers(), "alertlogic_roles": dataSourceRoles()},
 		}
 
 		p.ConfigureContextFunc = configure(version, p)

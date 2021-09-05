@@ -10,7 +10,7 @@ This is in _very early_ development and only supports a single of the [myriad of
 terraform {
   required_providers {
     alertlogic = {
-      version = "0.0.1"
+      version = "0.1.0"
       source  = "github.com/duffn/alertlogic"
     }
   }
@@ -46,5 +46,17 @@ data "alertlogic_users" "all_users" {}
 
 output "users" {
   value = data.alertlogic_users.all_users.users
+}
+```
+
+### Roles
+
+#### Data source
+
+```hcl
+data "alertlogic_roles" "all_roles" {}
+
+output "roles" {
+  value = data.alertlogic_roles.all_roles.roles
 }
 ```
