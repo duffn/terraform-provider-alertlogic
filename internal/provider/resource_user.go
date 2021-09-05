@@ -33,6 +33,7 @@ func resourceUser() *schema.Resource {
 				Description: "The user's status.",
 				Type:        schema.TypeBool,
 				Optional:    true,
+				Default:     true,
 			},
 			"mobile_phone": {
 				Description: "A mobile telephone number.",
