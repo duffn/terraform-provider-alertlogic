@@ -23,7 +23,7 @@ func main() {
 	opts := &plugin.ServeOpts{ProviderFunc: provider.New(version)}
 
 	if debugMode {
-		err := plugin.Debug(context.Background(), "registry.terraform.io/hashicorp/duffn/terraform-provider-alertlogic", opts)
+		err := plugin.Debug(context.Background(), "registry.terraform.io/duffn/terraform-provider-alertlogic", opts)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
