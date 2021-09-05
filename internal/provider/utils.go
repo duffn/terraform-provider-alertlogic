@@ -9,11 +9,8 @@ import (
 
 // stringChecksum takes a string and returns the checksum of the string.
 func stringChecksum(s string) string {
-	h := md5.New()
-	h.Write([]byte(s))
-	bs := h.Sum(nil)
-
-	return fmt.Sprintf("%x", bs)
+	h := md5.Sum([]byte(s))
+	return fmt.Sprintf("%x", h)
 }
 
 // stringListChecksum takes a slice of strings and returns the checksum of the strings.
