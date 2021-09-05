@@ -2,10 +2,7 @@ package provider
 
 import (
 	"context"
-	"encoding/json"
-	"log"
-	"strconv"
-	"time"
+	"fmt"
 
 	"github.com/duffn/go-alertlogic/alertlogic"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -46,11 +43,11 @@ func dataSourceUsers() *schema.Resource {
 							Optional: true,
 						},
 						"locked": {
-							Type:     schema.TypeString,
+							Type:     schema.TypeBool,
 							Optional: true,
 						},
 						"mfa_enabled": {
-							Type:     schema.TypeString,
+							Type:     schema.TypeBool,
 							Optional: true,
 						},
 						"version": {
@@ -73,38 +70,14 @@ func dataSourceUsers() *schema.Resource {
 								},
 							},
 						},
-						// "created": {
-						// 	Type:     schema.TypeList,
-						// 	Optional: true,
-						// 	Elem: &schema.Resource{
-						// 		Schema: map[string]*schema.Schema{
-						// 			"at": {
-						// 				Type:     schema.TypeInt,
-						// 				Optional: true,
-						// 			},
-						// 			"by": {
-						// 				Type:     schema.TypeString,
-						// 				Optional: true,
-						// 			},
-						// 		},
-						// 	},
-						// },
-						// "modified": {
-						// 	Type:     schema.TypeList,
-						// 	Optional: true,
-						// 	Elem: &schema.Resource{
-						// 		Schema: map[string]*schema.Schema{
-						// 			"at": {
-						// 				Type:     schema.TypeInt,
-						// 				Optional: true,
-						// 			},
-						// 			"by": {
-						// 				Type:     schema.TypeString,
-						// 				Optional: true,
-						// 			},
-						// 		},
-						// 	},
-						// },
+						"created": {
+							Type:     schema.TypeMap,
+							Optional: true,
+						},
+						"modified": {
+							Type:     schema.TypeMap,
+							Optional: true,
+						},
 					},
 				},
 			},
@@ -114,7 +87,6 @@ func dataSourceUsers() *schema.Resource {
 
 func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	api := meta.(*alertlogic.API)
-	// fmt.Println(api)
 
 	var diags diag.Diagnostics
 
@@ -123,18 +95,40 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, meta inter
 		return diag.FromErr(err)
 	}
 
-	usersJson, err := json.Marshal(users.Users)
-	if err != nil {
+	userDetails := make([]interface{}, 0)
+	userIds := make([]string, 0)
+	for _, v := range users.Users {
+		linkedUsersDetails := make([]interface{}, 0)
+
+		for _, u := range v.LinkedUsers {
+			linkedUsersDetails = append(linkedUsersDetails, map[string]interface{}{
+				"user_id":  u.UserID,
+				"location": u.Location,
+			})
+		}
+
+		userDetails = append(userDetails, map[string]interface{}{
+			"id":           v.ID,
+			"account_id":   v.AccountID,
+			"name":         v.Name,
+			"username":     v.Username,
+			"email":        v.Email,
+			"active":       v.Active,
+			"locked":       v.Locked,
+			"mfa_enabled":  v.MfaEnabled,
+			"version":      v.Version,
+			"linked_users": linkedUsersDetails,
+			"created":      map[string]interface{}{"at": fmt.Sprint(v.Created.At), "by": v.Created.By},
+			"modified":     map[string]interface{}{"at": fmt.Sprint(v.Modified.At), "by": v.Modified.By},
+		})
+		userIds = append(userIds, v.ID)
+	}
+
+	if err := d.Set("users", userDetails); err != nil {
 		return diag.FromErr(err)
 	}
 
-	log.Println(string(usersJson))
-
-	// if err := d.Set("users", usersJson); err != nil {
-	// 	return diag.FromErr(err)
-	// }
-
-	d.SetId(strconv.FormatInt(time.Now().Unix(), 10))
+	d.SetId(stringListChecksum(userIds))
 
 	return diags
 }
