@@ -60,3 +60,14 @@ output "roles" {
   value = data.alertlogic_roles.all_roles.roles
 }
 ```
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+## Thanks
+
+The [Terraform provider docs and tutorials are good](https://learn.hashicorp.com/tutorials/terraform/provider-setup), but also a big thanks to these two projects which gave me much inspiration.
+
+- [terraform-provider-pingdom](https://github.com/russellcardullo/terraform-provider-pingdom)
+- [terraform-provider-cloudflare](https://github.com/cloudflare/terraform-provider-cloudflare)
