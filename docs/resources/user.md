@@ -34,7 +34,6 @@ resource "alertlogic_user" "user" {
 - **active** (Boolean) The user's status.
 - **id** (String) The ID of this resource.
 - **mobile_phone** (String) A mobile telephone number.
-- **notifications_only** (Boolean) Make the user a notifications only user.
-- **webhook_url** (String) The user's webhook URL.
+- **role_ids** (List of String) An array of role IDs to grant to the user.
 
 

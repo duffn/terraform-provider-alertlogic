@@ -18,3 +18,23 @@ func stringListChecksum(s []string) string {
 	sort.Strings(s)
 	return stringChecksum(strings.Join(s, ""))
 }
+
+// contains checks if a string is present in a slice.
+func contains(s []string, str string) bool {
+	for _, v := range s {
+		if v == str {
+			return true
+		}
+	}
+	return false
+}
+
+// expandInterfaceToStringList turns an interface into a string slice.
+func expandInterfaceToStringList(list interface{}) []string {
+	ifaceList := list.([]interface{})
+	vs := make([]string, 0, len(ifaceList))
+	for _, v := range ifaceList {
+		vs = append(vs, v.(string))
+	}
+	return vs
+}
