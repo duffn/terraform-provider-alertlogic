@@ -2,7 +2,7 @@
 
 This is a Terraform provider for the [Alert Logic Cloud Insights API](https://console.cloudinsight.alertlogic.com/api/#/).
 
-This is in _very early_ development and only supports a single of the [myriad of endpoints](https://console.cloudinsight.alertlogic.com/api/#/) of the API. Expect the API here to break often during early development.
+This is in _very early_ development and only supports a few of the [myriad of endpoints](https://console.cloudinsight.alertlogic.com/api/#/) of the API. Expect the API here to break often during early development.
 
 ## Usage
 
@@ -24,6 +24,19 @@ provider "alertlogic" {
   access_key_id = var.access_key_id
   secret_key    = var.secret_key
   account_id    = var.account_id
+}
+
+```
+
+### Account
+
+#### Data Source
+
+```hcl
+data "alertlogic_account" "my_account" {}
+
+output "my_account" {
+  value = data.alertlogic_account.my_account
 }
 
 ```

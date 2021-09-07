@@ -14,6 +14,7 @@ func init() {
 
 func New(version string) func() *schema.Provider {
 	return func() *schema.Provider {
+
 		p := &schema.Provider{
 			Schema: map[string]*schema.Schema{
 				"account_id": {
@@ -36,8 +37,14 @@ func New(version string) func() *schema.Provider {
 					Description: "Your Alert Logic API secret key.",
 				},
 			},
-			ResourcesMap:   map[string]*schema.Resource{"alertlogic_user": resourceUser()},
-			DataSourcesMap: map[string]*schema.Resource{"alertlogic_users": dataSourceUsers(), "alertlogic_roles": dataSourceRoles()},
+			ResourcesMap: map[string]*schema.Resource{
+				"alertlogic_user": resourceUser(),
+			},
+			DataSourcesMap: map[string]*schema.Resource{
+				"alertlogic_users":   dataSourceUsers(),
+				"alertlogic_roles":   dataSourceRoles(),
+				"alertlogic_account": dataSourceAccount(),
+			},
 		}
 
 		p.ConfigureContextFunc = configure(version, p)
