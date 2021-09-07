@@ -22,18 +22,18 @@ func New(version string) func() *schema.Provider {
 					DefaultFunc: schema.EnvDefaultFunc("ALERTLOGIC_ACCOUNT_ID", nil),
 					Description: "Your Alert Logic Account ID.",
 				},
-				"username": {
+				"access_key_id": {
 					Type:        schema.TypeString,
 					Required:    true,
-					DefaultFunc: schema.EnvDefaultFunc("ALERTLOGIC_USERNAME", nil),
-					Description: "Your Alert Logic username. While you can use your actual username here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.",
+					DefaultFunc: schema.EnvDefaultFunc("ALERTLOGIC_ACCESS_KEY_ID", nil),
+					Description: "Your Alert Logic API access key ID.",
 				},
-				"password": {
+				"secret_key": {
 					Type:        schema.TypeString,
 					Required:    true,
 					Sensitive:   true,
-					DefaultFunc: schema.EnvDefaultFunc("ALERTLOGIC_PASSWORD", nil),
-					Description: "Your Alert Logic password. While you can use your actual password here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.",
+					DefaultFunc: schema.EnvDefaultFunc("ALERTLOGIC_SECRET_KEY", nil),
+					Description: "Your Alert Logic API secret key.",
 				},
 			},
 			ResourcesMap:   map[string]*schema.Resource{"alertlogic_user": resourceUser()},
@@ -50,12 +50,12 @@ func configure(version string, p *schema.Provider) func(context.Context, *schema
 	return func(c context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 		var diags diag.Diagnostics
 
-		username := d.Get("username").(string)
-		password := d.Get("password").(string)
+		access_key_id := d.Get("access_key_id").(string)
+		secret_key := d.Get("secret_key").(string)
 		accountId := d.Get("account_id").(string)
 
-		if username != "" && password != "" && accountId != "" {
-			c, err := alertlogic.NewWithUsernameAndPassword(accountId, username, password)
+		if access_key_id != "" && secret_key != "" && accountId != "" {
+			c, err := alertlogic.NewWithAccessKey(accountId, access_key_id, secret_key)
 			if err != nil {
 				return nil, diag.FromErr(err)
 			}
@@ -65,7 +65,7 @@ func configure(version string, p *schema.Provider) func(context.Context, *schema
 			diags = append(diags, diag.Diagnostic{
 				Severity: diag.Error,
 				Summary:  "Unable to create Alert Logic client",
-				Detail:   "You must set username, password, and account_id",
+				Detail:   "You must set access_key_id, secret_key, and account_id",
 			})
 			return nil, diags
 		}

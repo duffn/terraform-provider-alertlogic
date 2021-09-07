@@ -14,9 +14,9 @@ description: |-
 
 ```terraform
 provider "alertlogic" {
-  username   = var.username
-  password   = var.password
-  account_id = var.account_id
+  access_key_id = var.access_key_id
+  secret_key    = var.secret_key
+  account_id    = var.account_id
 }
 ```
 
@@ -25,6 +25,6 @@ provider "alertlogic" {
 
 ### Required
 
+- **access_key_id** (String) Your Alert Logic API access key ID.
 - **account_id** (String) Your Alert Logic Account ID.
-- **password** (String, Sensitive) Your Alert Logic password. While you can use your actual password here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.
-- **username** (String) Your Alert Logic username. While you can use your actual username here if you do not have MFA enabled, it is strongly recommended to use specific API access keys instead.
+- **secret_key** (String, Sensitive) Your Alert Logic API secret key.
