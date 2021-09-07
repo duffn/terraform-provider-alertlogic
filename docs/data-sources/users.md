@@ -4,11 +4,14 @@ page_title: "alertlogic_users Data Source - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
   A list of Alert Logic users.
+  API reference https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers
 ---
 
 # alertlogic_users (Data Source)
 
 A list of Alert Logic users.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers)
 
 ## Example Usage
 

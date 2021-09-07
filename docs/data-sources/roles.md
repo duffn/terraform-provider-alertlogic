@@ -4,11 +4,14 @@ page_title: "alertlogic_roles Data Source - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
   A list of Alert Logic roles, both account specific and global.
+  API reference https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Role_Resources-ListRoles
 ---
 
 # alertlogic_roles (Data Source)
 
 A list of Alert Logic roles, both account specific and global.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Role_Resources-ListRoles)
 
 ## Example Usage
 

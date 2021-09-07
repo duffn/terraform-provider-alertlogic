@@ -10,7 +10,9 @@ import (
 
 func resourceUser() *schema.Resource {
 	return &schema.Resource{
-		Description:   "An Alert Logic user.",
+		Description: `An Alert Logic user.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources)`,
 		CreateContext: resourceUserCreate,
 		ReadContext:   resourceUserRead,
 		UpdateContext: resourceUserUpdate,
@@ -19,6 +21,11 @@ func resourceUser() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 		Schema: map[string]*schema.Schema{
+			"id": {
+				Description: "The user's ID",
+				Type:        schema.TypeString,
+				Computed:    true,
+			},
 			"name": {
 				Description: "A full name.",
 				Type:        schema.TypeString,
