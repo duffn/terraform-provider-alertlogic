@@ -1,5 +1,5 @@
 provider "alertlogic" {
-  username   = var.username
-  password   = var.password
-  account_id = var.account_id
+  access_key_id = var.access_key_id
+  secret_key    = var.secret_key
+  account_id    = var.account_id
 }

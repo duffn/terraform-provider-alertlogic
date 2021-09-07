@@ -10,21 +10,22 @@ This is in _very early_ development and only supports a single of the [myriad of
 terraform {
   required_providers {
     alertlogic = {
-      version = "0.1.0"
+      version = "0.0.1-beta.3"
       source  = "github.com/duffn/alertlogic"
     }
   }
 }
 
-variable "username" {}
-variable "password" {}
+variable "access_key_id" {}
+variable "secret_key" {}
 variable "account_id" {}
 
 provider "alertlogic" {
-  username   = var.username
-  password   = var.password
-  account_id = var.account_id
+  access_key_id = var.access_key_id
+  secret_key    = var.secret_key
+  account_id    = var.account_id
 }
+
 ```
 
 ### Users
