@@ -38,7 +38,8 @@ func New(version string) func() *schema.Provider {
 				},
 			},
 			ResourcesMap: map[string]*schema.Resource{
-				"alertlogic_user": resourceUser(),
+				"alertlogic_user":    resourceUser(),
+				"alertlogic_account": resourceAccount(),
 			},
 			DataSourcesMap: map[string]*schema.Resource{
 				"alertlogic_users":   dataSourceUsers(),
