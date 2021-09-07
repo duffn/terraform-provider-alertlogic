@@ -9,6 +9,57 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+var roleSchema = map[string]*schema.Schema{
+	"id": {
+		Type:        schema.TypeString,
+		Computed:    true,
+		Description: "The role's ID.",
+	},
+	"account_id": {
+		Type:        schema.TypeString,
+		Optional:    true,
+		Description: "Account ID that holds the role, or '*' if the role is global.",
+	},
+	"name": {
+		Type:        schema.TypeString,
+		Optional:    true,
+		Description: "The role's name",
+	},
+	"permissions": {
+		Type:        schema.TypeMap,
+		Optional:    true,
+		Description: "The role's permissions.",
+	},
+	"version": {
+		Type:        schema.TypeInt,
+		Optional:    true,
+		Description: "The version number of the role.",
+	},
+	"global": {
+		Type:        schema.TypeBool,
+		Optional:    true,
+		Description: "Indicates whether or not the role is a global role.",
+	},
+	"legacy_permissions": {
+		Type:        schema.TypeList,
+		Optional:    true,
+		Description: "Legacy permissions of this role.",
+		Elem: &schema.Schema{
+			Type: schema.TypeString,
+		},
+	},
+	"created": {
+		Type:        schema.TypeMap,
+		Optional:    true,
+		Description: "Information on when the record was created.",
+	},
+	"modified": {
+		Type:        schema.TypeMap,
+		Optional:    true,
+		Description: "Information on when the record was modified.",
+	},
+}
+
 func dataSourceRoles() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceRolesRead,
@@ -21,56 +72,7 @@ func dataSourceRoles() *schema.Resource {
 				Description: "A list of roles.",
 				Optional:    true,
 				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"id": {
-							Type:        schema.TypeString,
-							Computed:    true,
-							Description: "The role's ID.",
-						},
-						"account_id": {
-							Type:        schema.TypeString,
-							Optional:    true,
-							Description: "Account ID that holds the role, or '*' if the role is global.",
-						},
-						"name": {
-							Type:        schema.TypeString,
-							Optional:    true,
-							Description: "The role's name",
-						},
-						"permissions": {
-							Type:        schema.TypeMap,
-							Optional:    true,
-							Description: "The role's permissions.",
-						},
-						"version": {
-							Type:        schema.TypeInt,
-							Optional:    true,
-							Description: "The version number of the role.",
-						},
-						"global": {
-							Type:        schema.TypeBool,
-							Optional:    true,
-							Description: "Indicates whether or not the role is a global role.",
-						},
-						"legacy_permissions": {
-							Type:        schema.TypeList,
-							Optional:    true,
-							Description: "Legacy permissions of this role.",
-							Elem: &schema.Schema{
-								Type: schema.TypeString,
-							},
-						},
-						"created": {
-							Type:        schema.TypeMap,
-							Optional:    true,
-							Description: "Information on when the record was created.",
-						},
-						"modified": {
-							Type:        schema.TypeMap,
-							Optional:    true,
-							Description: "Information on when the record was modified.",
-						},
-					},
+					Schema: roleSchema,
 				},
 			},
 		},
@@ -87,10 +89,14 @@ func dataSourceRolesRead(ctx context.Context, d *schema.ResourceData, meta inter
 		return diag.FromErr(err)
 	}
 
+	return formatRolesResponse(diags, d, roles)
+}
+
+// formatRolesResponse holds shared logic for `dataSourceRolesRead` and `dataSourceGlobalRolesRead`.
+func formatRolesResponse(diags diag.Diagnostics, d *schema.ResourceData, roles alertlogic.RolesList) diag.Diagnostics {
 	roleDetails := make([]interface{}, 0)
 	roleIds := make([]string, 0)
 	for _, v := range roles.Roles {
-
 		roleDetails = append(roleDetails, map[string]interface{}{
 			"id":                 v.ID,
 			"account_id":         v.AccountID,
