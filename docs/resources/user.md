@@ -4,11 +4,14 @@ page_title: "alertlogic_user Resource - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
   An Alert Logic user.
+  API reference https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources
 ---
 
 # alertlogic_user (Resource)
 
 An Alert Logic user.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources)
 
 ## Example Usage
 
@@ -33,8 +36,11 @@ resource "alertlogic_user" "user" {
 ### Optional
 
 - **active** (Boolean) The user's status.
-- **id** (String) The ID of this resource.
 - **mobile_phone** (String) A mobile telephone number.
 - **role_ids** (List of String) An array of role IDs to grant to the user.
+
+### Read-Only
+
+- **id** (String) The user's ID
 
 

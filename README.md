@@ -6,74 +6,7 @@ This is in _very early_ development and only supports a few of the [myriad of en
 
 ## Usage
 
-```hcl
-terraform {
-  required_providers {
-    alertlogic = {
-      version = "0.0.1-beta.3"
-      source  = "github.com/duffn/alertlogic"
-    }
-  }
-}
-
-variable "access_key_id" {}
-variable "secret_key" {}
-variable "account_id" {}
-
-provider "alertlogic" {
-  access_key_id = var.access_key_id
-  secret_key    = var.secret_key
-  account_id    = var.account_id
-}
-
-```
-
-### Account
-
-#### Data Source
-
-```hcl
-data "alertlogic_account" "my_account" {}
-
-output "my_account" {
-  value = data.alertlogic_account.my_account
-}
-
-```
-
-### Users
-
-#### Resource
-
-```hcl
-resource "alertlogic_user" "user" {
-  name         = "Bob Loblaw"
-  email        = "bob@bobloblawlaw.com"
-  mobile_phone = "234-555-5555"
-}
-```
-
-#### Data source
-
-```hcl
-data "alertlogic_users" "all_users" {}
-
-output "users" {
-  value = data.alertlogic_users.all_users.users
-}
-```
-
-### Roles
-
-#### Data source
-
-```hcl
-data "alertlogic_roles" "all_roles" {}
-
-output "roles" {
-  value = data.alertlogic_roles.all_roles.roles
-}
-```
+You can find usage examples in the [Terraform registry entry for this provider](https://registry.terraform.io/providers/duffn/alertlogic/latest/docs).
 
 ## License
 

@@ -12,7 +12,9 @@ import (
 func dataSourceRoles() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceRolesRead,
-		Description: "A list of Alert Logic roles, both account specific and global.",
+		Description: `A list of Alert Logic roles, both account specific and global.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Role_Resources-ListRoles)`,
 		Schema: map[string]*schema.Schema{
 			"roles": {
 				Type:        schema.TypeList,

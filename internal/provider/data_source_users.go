@@ -12,7 +12,10 @@ import (
 func dataSourceUsers() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceUsersRead,
-		Description: "A list of Alert Logic users.",
+		Description: `A list of Alert Logic users.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers)
+		`,
 		Schema: map[string]*schema.Schema{
 			"users": {
 				Type:        schema.TypeList,
