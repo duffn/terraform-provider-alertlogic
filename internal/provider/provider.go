@@ -40,10 +40,11 @@ func New(version string) func() *schema.Provider {
 				"alertlogic_user": resourceUser(),
 			},
 			DataSourcesMap: map[string]*schema.Resource{
-				"alertlogic_users":        dataSourceUsers(),
-				"alertlogic_roles":        dataSourceRoles(),
-				"alertlogic_global_roles": dataSourceGlobalRoles(),
-				"alertlogic_account":      dataSourceAccount(),
+				"alertlogic_users":                     dataSourceUsers(),
+				"alertlogic_roles":                     dataSourceRoles(),
+				"alertlogic_global_roles":              dataSourceGlobalRoles(),
+				"alertlogic_account":                   dataSourceAccount(),
+				"alertlogic_assets_external_dns_names": dataSourceAssetsExternalDNSNames(),
 			},
 		}
 
