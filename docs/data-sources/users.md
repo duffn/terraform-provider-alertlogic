@@ -4,11 +4,14 @@ page_title: "alertlogic_users Data Source - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
   A list of Alert Logic users.
+  API reference https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers
 ---
 
 # alertlogic_users (Data Source)
 
 A list of Alert Logic users.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers)
 
 ## Example Usage
 
@@ -42,6 +45,7 @@ Optional:
 - **mfa_enabled** (Boolean) Indicates the status of the users MFA.
 - **modified** (Map of String) Information on when the record was modified.
 - **name** (String) The user's full name
+- **role_ids** (List of String) Role IDs for the user.
 - **username** (String) The user's username.
 - **version** (Number) The version of the user's details; i.e. how many times has the user been updated.
 

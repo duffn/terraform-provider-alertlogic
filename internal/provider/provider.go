@@ -14,7 +14,6 @@ func init() {
 
 func New(version string) func() *schema.Provider {
 	return func() *schema.Provider {
-
 		p := &schema.Provider{
 			Schema: map[string]*schema.Schema{
 				"account_id": {
@@ -42,9 +41,11 @@ func New(version string) func() *schema.Provider {
 				"alertlogic_account": resourceAccount(),
 			},
 			DataSourcesMap: map[string]*schema.Resource{
-				"alertlogic_users":   dataSourceUsers(),
-				"alertlogic_roles":   dataSourceRoles(),
-				"alertlogic_account": dataSourceAccount(),
+				"alertlogic_users":                     dataSourceUsers(),
+				"alertlogic_roles":                     dataSourceRoles(),
+				"alertlogic_global_roles":              dataSourceGlobalRoles(),
+				"alertlogic_account":                   dataSourceAccount(),
+				"alertlogic_assets_external_dns_names": dataSourceAssetsExternalDNSNames(),
 			},
 		}
 

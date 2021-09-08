@@ -12,7 +12,9 @@ import (
 func dataSourceAccount() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceAccountRead,
-		Description: "Details about an Alert Logic account.",
+		Description: `Details about an Alert Logic account.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Account_Resources-GetAccountDetails)`,
 		Schema: map[string]*schema.Schema{
 			"id": {
 				Description: "The Alert Logic account ID.",

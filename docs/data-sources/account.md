@@ -4,11 +4,14 @@ page_title: "alertlogic_account Data Source - terraform-provider-alertlogic"
 subcategory: ""
 description: |-
   Details about an Alert Logic account.
+  API reference https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Account_Resources-GetAccountDetails
 ---
 
 # alertlogic_account (Data Source)
 
 Details about an Alert Logic account.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_Account_Resources-GetAccountDetails)
 
 ## Example Usage
 

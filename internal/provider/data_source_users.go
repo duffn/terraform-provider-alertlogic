@@ -12,7 +12,10 @@ import (
 func dataSourceUsers() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceUsersRead,
-		Description: "A list of Alert Logic users.",
+		Description: `A list of Alert Logic users.
+
+[API reference](https://console.cloudinsight.alertlogic.com/api/aims/#api-AIMS_User_Resources-ListUsers)
+		`,
 		Schema: map[string]*schema.Schema{
 			"users": {
 				Type:        schema.TypeList,
@@ -84,6 +87,14 @@ func dataSourceUsers() *schema.Resource {
 								},
 							},
 						},
+						"role_ids": {
+							Description: "Role IDs for the user.",
+							Type:        schema.TypeList,
+							Optional:    true,
+							Elem: &schema.Schema{
+								Type: schema.TypeString,
+							},
+						},
 						"created": {
 							Type:        schema.TypeMap,
 							Optional:    true,
@@ -114,6 +125,11 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, meta inter
 	userDetails := make([]interface{}, 0)
 	userIds := make([]string, 0)
 	for _, v := range users.Users {
+		roleIds, err := api.GetAssignedRoleIDs(v.ID)
+		if err != nil {
+			return diag.FromErr(err)
+		}
+
 		linkedUsersDetails := make([]interface{}, 0)
 
 		for _, u := range v.LinkedUsers {
@@ -134,6 +150,7 @@ func dataSourceUsersRead(ctx context.Context, d *schema.ResourceData, meta inter
 			"mfa_enabled":  v.MfaEnabled,
 			"version":      v.Version,
 			"linked_users": linkedUsersDetails,
+			"role_ids":     roleIds.RoleIds,
 			"created":      map[string]interface{}{"at": fmt.Sprint(v.Created.At), "by": v.Created.By},
 			"modified":     map[string]interface{}{"at": fmt.Sprint(v.Modified.At), "by": v.Modified.By},
 		})
