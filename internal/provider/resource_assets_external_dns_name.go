@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/duffn/go-alertlogic/alertlogic"
@@ -20,7 +21,18 @@ func resourceAssetsExternalDnsName() *schema.Resource {
 		ReadContext:   resourceAssetsExternalDnsNameRead,
 		DeleteContext: resourceAssetsExternalDnsNameDelete,
 		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+				deploymentId, dnsName, err := parseAssetImportId(d.Id())
+				if err != nil {
+					return nil, err
+				}
+
+				d.Set("deployment_id", deploymentId)
+				d.Set("dns_name", dnsName)
+				d.SetId(getAssetId(deploymentId, dnsName))
+
+				return []*schema.ResourceData{d}, nil
+			},
 		},
 		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(10 * time.Second),
@@ -138,4 +150,15 @@ func getAssetFromList(assetId string, assets alertlogic.ExternalDNSNameAssets) a
 	}
 
 	return thisAsset
+}
+
+// parseAssetImportId parses an ID passed to the import function. The ID should be in
+// the format `deploymentId/dnsName`
+func parseAssetImportId(assetId string) (string, string, error) {
+	parts := strings.SplitN(assetId, "/", 2)
+	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
+		return "", "", fmt.Errorf("unexpected format of ID (%s), expected deploymentId/dnsName", assetId)
+	}
+
+	return parts[0], parts[1], nil
 }
