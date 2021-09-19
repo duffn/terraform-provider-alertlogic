@@ -15,6 +15,7 @@ import (
 func resourceAssetsExternalDnsName() *schema.Resource {
 	return &schema.Resource{
 		Description: `An Alert Logic external DNS asset.
+This is only the asset of the ` + "`external-dns-name`" + ` type. You cannot create any other asset type with this resource.
 
 [API reference](https://console.cloudinsight.alertlogic.com/api/assets_write/#api-DeclareModify-DeclareAsset)`,
 		CreateContext: resourceAssetsExternalDnsNameCreate,
