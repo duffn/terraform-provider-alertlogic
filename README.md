@@ -1,3 +1,7 @@
+# Unmaintained
+
+_This repository is archived and unmaintained. Use at your own risk._
+
 # terraform-provider-alertlogic
 
 This is a Terraform provider for the [Alert Logic Cloud Insights API](https://console.cloudinsight.alertlogic.com/api/#/).
